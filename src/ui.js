@@ -231,7 +231,7 @@ export class UI {
     $('#hint').innerHTML = ed.tool === 'paint'
       ? '<kbd>Click</kbd>paint part<kbd>Shift+Click</kbd>whole rocket'
       : ed.held
-        ? '<kbd>Click</kbd>attach<kbd>X</kbd>symmetry<kbd>Alt</kbd>free angle<kbd>Esc</kbd>discard'
+        ? (ed.vessel.size ? '<kbd>Click</kbd>attach<kbd>X</kbd>symmetry<kbd>Alt</kbd>free angle<kbd>Esc</kbd>discard' : '<kbd>Click</kbd>place first part<kbd>Esc</kbd>discard')
         : '<kbd>Drag</kbd>orbit<kbd>Scroll</kbd>zoom<kbd>Shift+Scroll</kbd>height<kbd>F</kbd>frame';
     this.autosave();
   }

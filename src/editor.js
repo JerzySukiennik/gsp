@@ -176,7 +176,6 @@ export class Editor {
     if (this.held) this.discardHeld();
     const same = this.colors.main === DEFAULT_COLORS.main && this.colors.accent === DEFAULT_COLORS.accent;
     this.setHeld([{ id: 'h0', type, parent: null, att: null, sym: null, colors: same ? null : { ...this.colors } }], null);
-    if (!this.vessel.size) { this.commit({ atts: [{ parent: null, att: null }] }); this.fit(); }
   }
 
   setHeld(sub, undoBefore) {
@@ -216,10 +215,12 @@ export class Editor {
   commit(cand) {
     const h = this.held;
     const before = h.undoBefore || this.snapshot();
+    if (cand.root) this.vesselGroup.position.y = cand.poses[0].pos.y;
     this.vessel.insert(h.sub, cand.atts[0].parent, cand.atts);
     this.pushUndo(before);
     this.clearHeld();
     this.rebuild();
+    if (cand.root) this.fit();
     this.emit();
   }
 
@@ -359,6 +360,12 @@ export class Editor {
     const gy = this.vesselGroup.position.y;
     const mouse = [this.pointer.x, this.pointer.y];
     let best = null;
+
+    if (!this.vessel.size) {
+      const pp = this.planePoint();
+      const y = THREE.MathUtils.clamp(pp ? pp.y : 8, 1.5, 40);
+      return { root: true, atts: [{ parent: null, att: null }], poses: [{ pos: new THREE.Vector3(0, y, 0), yaw: 0 }] };
+    }
 
     if (canStack(def)) {
       const pp = this.planePoint();
