@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gzowo Space Program</title>
+<meta name="description" content="Build rockets in the hangar, then fly them. Vehicle Assembly Building — first build.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Michroma&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }
+</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+
+<div id="loading"><div class="mark">GSP</div><div class="bar"><i id="loadbar"></i></div><div class="sub">GZOWO SPACE PROGRAM — ASSEMBLY HANGAR</div></div>
+
+<header id="top" class="card" hidden>
+  <div class="brand">GSP</div>
+  <input id="name" maxlength="40" spellcheck="false" aria-label="Rocket name">
+  <nav>
+    <button data-act="new" title="New design">New</button>
+    <button data-act="save" title="Save to this browser">Save</button>
+    <button data-act="open" title="Open a saved design">Open</button>
+    <span class="sep"></span>
+    <button data-act="export" title="Export design to a file">↓</button>
+    <button data-act="import" title="Import design from a file">↑</button>
+    <span class="sep"></span>
+    <button data-act="undo" title="Undo — Cmd/Ctrl+Z">↶</button>
+    <button data-act="redo" title="Redo — Shift+Cmd/Ctrl+Z">↷</button>
+  </nav>
+</header>
+<button id="launch" disabled title="Flight arrives in the next build" hidden>Launch</button>
+
+<aside id="catalog" class="card" hidden>
+  <button id="cathead" aria-expanded="false" title="Part types"><span class="burger"><i></i><i></i><i></i></span><b id="catlabel">All parts</b><small id="catcount"></small></button>
+  <div id="cats"></div>
+  <div id="parts"></div>
+</aside>
+
+<aside id="side" class="card" hidden>
+  <div id="stats"></div>
+  <div id="warnings"></div>
+  <div id="stagehead"><span class="mono">Staging</span><button id="autostage" title="Recompute staging from the part tree">Auto</button></div>
+  <div id="stages"></div>
+</aside>
+
+<footer id="bottom" class="card" hidden>
+  <div class="seg" id="tools">
+    <button data-tool="build" title="Build — 1">Build</button>
+    <button data-tool="paint" title="Paint — 2">Paint</button>
+  </div>
+  <span class="mono">Sym</span>
+  <div class="seg" id="sym"></div>
+  <span class="div"></span>
+  <input type="color" id="cmain" title="Main colour">
+  <input type="color" id="caccent" title="Accent colour">
+  <div id="swatches"></div>
+</footer>
+<div id="hint" hidden></div>
+
+<div id="tip" class="card" hidden></div>
+<div id="toast" hidden></div>
+<div id="modal" hidden><div class="sheet card"><h2 id="modal-title"></h2><div id="modal-body"></div><button id="modal-close">Close</button></div></div>
+<input type="file" id="file" accept=".json,application/json" hidden>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
